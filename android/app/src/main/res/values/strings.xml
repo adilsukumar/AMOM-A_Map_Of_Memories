@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">A Map Of Memories</string>
+    <string name="title_activity_main">A Map Of Memories</string>
+    <string name="package_name">com.amom.app</string>
+    <string name="custom_url_scheme">com.amom.app</string>
+</resources>

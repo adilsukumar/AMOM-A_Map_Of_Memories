@@ -19,14 +19,14 @@ const Index = () => {
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
         <h1 
-          className="mb-3 text-5xl md:text-6xl lg:text-7xl font-playfair font-normal text-landing-dark tracking-tight opacity-0 animate-fade-in"
+          className="mb-3 text-5xl md:text-6xl lg:text-7xl font-playfair font-normal text-landing-dark tracking-tight opacity-0 animate-fade-in text-center"
           style={{ animationDelay: '100ms' }}
         >
           A Map Of Memories
         </h1>
         
         <p 
-          className="mb-8 text-lg md:text-xl font-playfair italic text-landing-muted opacity-0 animate-fade-in"
+          className="mb-8 text-lg md:text-xl font-playfair italic text-landing-muted opacity-0 animate-fade-in text-center"
           style={{ animationDelay: '250ms' }}
         >
           Just someone who remembered something.

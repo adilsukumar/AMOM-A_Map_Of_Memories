@@ -435,17 +435,17 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
       />
       
       {/* Search Bar */}
-      <div className="absolute top-4 left-1/2 right-4 z-[1001] flex justify-end">
-        <div className="relative w-full max-w-sm">
-          <div className="flex items-center bg-gray-200 border border-gray-300 rounded-xl shadow-lg">
-            <Search className="w-5 h-5 text-gray-600 ml-4" />
+      <div className="absolute top-0 right-4 z-[1001] pointer-events-none pt-1" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.25rem)' }}>
+        <div className="relative pointer-events-auto w-[220px] sm:w-[260px]">
+          <div className="flex items-center h-[44px] bg-gray-200 border border-gray-300 rounded-xl shadow-lg">
+            <Search className="w-5 h-5 text-gray-600 ml-4 flex-shrink-0" />
             <input
               type="text"
               placeholder="Search places..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 px-4 py-3 bg-transparent text-gray-800 font-playfair placeholder:text-gray-500 
-                       focus:outline-none text-sm"
+              className="flex-1 w-full px-3 h-full bg-transparent text-gray-800 font-playfair placeholder:text-gray-500 
+                       focus:outline-none text-sm leading-normal box-border border-none outline-none"
             />
             {searchQuery && (
               <button
@@ -488,7 +488,7 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
       </div>
       
       {/* Locate Me Button */}
-      <div className="absolute top-20 right-4 z-[1000]">
+      <div className="absolute right-4 z-[1000]" style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.25rem + 44px + 16px)' }}>
         <button
           onClick={() => {
             if (!navigator.geolocation) {
@@ -581,7 +581,7 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
           box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
           border-radius: 12px !important;
           overflow: hidden;
-          margin-top: 96px !important;
+          margin-top: calc(env(safe-area-inset-top, 0px) + 0.25rem + 44px + 16px) !important;
           margin-left: 16px !important;
           background: transparent !important;
         }

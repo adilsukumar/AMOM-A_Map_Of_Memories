@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/AMOM-A_Map_Of_Memories/',
+  base: '/',
   build: {
     assetsDir: 'assets',
     rollupOptions: {

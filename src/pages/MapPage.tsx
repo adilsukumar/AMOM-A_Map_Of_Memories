@@ -6,15 +6,19 @@ import MapView from '@/components/MapView';
 import MemoryCard from '@/components/MemoryCard';
 import MapMemoryPopup from '@/components/MapMemoryPopup';
 import MemoriesPanel from '@/components/MemoriesPanel';
+import DocsModal from '@/components/DocsModal';
+import ProfilePanel from '@/components/ProfilePanel';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMemories, Memory } from '@/hooks/useMemories';
-import { LogOut, MapPin, User, List } from 'lucide-react';
+import { MapPin, List, BookOpen, User } from 'lucide-react';
 
 const MapPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null);
   const [isPlacementMode, setIsPlacementMode] = useState(false);
   const [isMemoriesPanelOpen, setIsMemoriesPanelOpen] = useState(false);
+  const [isDocsOpen, setIsDocsOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [flyToLocation, setFlyToLocation] = useState<{ lat: number; lng: number; zoom?: number } | null>(null);
   const [popupData, setPopupData] = useState<{
     coords: { lat: number; lng: number };
@@ -96,47 +100,21 @@ const MapPage = () => {
         />
       </div>
 
-      {/* Top Bar - Clean header with logo and actions */}
-      <div className="absolute top-4 left-4 right-4 z-[1001] flex justify-between items-start pointer-events-none">
-        {/* Logo */}
-        <button 
-          onClick={() => navigate('/')}
+      {/* Top Bar - book icon on the left, offset below status bar */}
+      <div className="absolute top-0 left-4 z-[1001] pointer-events-none pt-1" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.25rem)' }}>
+        {/* Book icon → opens DOCS */}
+        <button
+          onClick={() => setIsDocsOpen(true)}
           className="flex items-center gap-3 px-4 py-2.5 bg-[#2a3142]/95 backdrop-blur-md rounded-xl 
                    border border-[#3d4555] shadow-lg hover:bg-[#353d4f] transition-all pointer-events-auto"
+          title="How to use AMOM"
         >
-          <AmomLogo variant="full" className="w-7 h-7" />
-          <span className="text-[#e8eaed] text-sm font-playfair tracking-wide">
-            AMOM
-          </span>
+          <BookOpen size={20} className="text-[#e8eaed]" />
+          <span className="text-[#e8eaed] text-sm font-playfair tracking-wide">AMOM</span>
         </button>
-
-        {/* Right side actions */}
-        <div className="flex items-center gap-2 pointer-events-auto">
-          {user ? (
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-2 px-4 py-2.5 bg-[#2a3142]/95 backdrop-blur-md 
-                       border border-[#3d4555] rounded-xl text-[#e8eaed] font-playfair 
-                       text-sm hover:bg-[#353d4f] shadow-lg transition-all"
-            >
-              <LogOut size={16} />
-              <span className="hidden sm:inline">Sign Out</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate('/auth')}
-              className="flex items-center gap-2 px-4 py-2.5 bg-[#2a3142]/95 backdrop-blur-md 
-                       border border-[#3d4555] rounded-xl text-[#e8eaed] font-playfair 
-                       text-sm hover:bg-[#353d4f] shadow-lg transition-all"
-            >
-              <User size={16} />
-              <span className="hidden sm:inline">Sign In</span>
-            </button>
-          )}
-        </div>
       </div>
 
-      {/* Bottom Controls - Organized in a clean bar */}
+      {/* Bottom Controls */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1001] pointer-events-none">
         <div className="flex items-center gap-3 px-4 py-3 bg-[#2a3142]/95 backdrop-blur-md rounded-2xl 
                       border border-[#3d4555] shadow-xl pointer-events-auto">
@@ -169,6 +147,19 @@ const MapPage = () => {
               <span>{memories.length} {memories.length === 1 ? 'Memory' : 'Memories'}</span>
             </button>
           )}
+
+          {/* Divider */}
+          <div className="w-px h-8 bg-[#3d4555]" />
+
+          {/* Profile Button */}
+          <button
+            onClick={() => setIsProfileOpen(true)}
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-[#353d4f] 
+                     text-[#e8eaed] hover:bg-[#404859] font-playfair text-sm transition-all"
+            title="Profile"
+          >
+            <User size={18} />
+          </button>
         </div>
 
         {/* Hint text */}
@@ -178,6 +169,11 @@ const MapPage = () => {
             : 'Drag to explore • Scroll to zoom'
           }
         </p>
+      </div>
+
+      {/* Copyright notice */}
+      <div className="fixed bottom-2 left-2 text-xs text-white/90 z-[1002] bg-slate-700/80 px-2 py-1 rounded">
+        © <a href="https://www.linkedin.com/in/adilsukumar" target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-white">Adil Sukumar</a>
       </div>
 
       {/* Memory Card */}
@@ -220,6 +216,19 @@ const MapPage = () => {
         onUpdateMemory={async (id, updates) => {
           await updateMemory(id, updates);
         }}
+      />
+
+      {/* Docs Modal */}
+      <DocsModal isOpen={isDocsOpen} onClose={() => setIsDocsOpen(false)} />
+
+      {/* Profile Panel */}
+      <ProfilePanel
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        user={user}
+        memoriesCount={memories.length}
+        onSignOut={handleSignOut}
+        onSignIn={() => navigate('/auth')}
       />
     </div>
   );

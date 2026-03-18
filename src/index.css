@@ -66,6 +66,11 @@
   }
 }
 
+/* Safe area utility — applied only to top bar, not the entire root */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 @layer components {
   .amom-button {
     @apply px-6 py-2.5 border border-foreground/80 bg-transparent text-foreground 
@@ -171,4 +176,12 @@
 
 .animation-delay-300 {
   animation-delay: 300ms;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
 }

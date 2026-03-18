@@ -27,3 +27,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build artifacts & junk
+build_output.log
+FORCE_*.txt
+run.bat
+assets/index-*.js
+assets/index-*.css
