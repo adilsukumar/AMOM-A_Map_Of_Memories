@@ -625,7 +625,7 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
           backdrop-filter: blur(12px);
           color: #e8eaed !important;
           font-family: 'Playfair Display', serif !important;
-          margin-top: 16px !important;
+          margin-top: calc(env(safe-area-inset-top, 0px) + 0.25rem + 44px + 16px + 48px + 16px) !important;
           margin-right: 16px !important;
         }
         .leaflet-control-layers-toggle {
