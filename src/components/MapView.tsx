@@ -222,8 +222,8 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
       opacity: 0.9
     });
 
-    // Add ultra-detailed layer as base with maximum detail
-    ultraDetailLayer.addTo(map);
+    // Add Standard OSM as default base layer
+    osmLayer.addTo(map);
 
     // Add single clean detail overlay for maximum information
     const cleanDetailOverlay = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places_Alternate/MapServer/tile/{z}/{y}/{x}', {
@@ -233,11 +233,11 @@ const MapView = ({ memories, onMemoryClick, onMapClick, selectedMemory, isPlacem
     });
     cleanDetailOverlay.addTo(map);
 
-    // Layer control with EXTREME detail options
+    // Layer control
     const baseLayers = {
-      "🏢 ULTRA Detail (Default)": ultraDetailLayer,
-      "🗺️ Max POI + Continents": maxPOILayer,
       "🌍 Standard OSM": osmLayer,
+      "🏢 ULTRA Detail": ultraDetailLayer,
+      "🗺️ Max POI + Continents": maxPOILayer,
       "🏗️ Buildings View": buildingsLayer,
       "🛰️ Satellite HD": satelliteLayer
     };
