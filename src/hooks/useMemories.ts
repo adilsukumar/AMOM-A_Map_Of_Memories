@@ -24,17 +24,11 @@ export const useMemories = () => {
   const { toast } = useToast();
 
   const fetchMemories = async () => {
-    if (!user) {
-      setMemories([]);
-      setLoading(false);
-      return;
-    }
-
     try {
       const { data, error } = await supabase
         .from('memories')
         .select('*')
-        .or(`user_id.eq.${user.id},is_public.eq.true`)
+        .or(user ? `user_id.eq.${user.id},is_public.eq.true` : 'is_public.eq.true')
         .order('created_at', { ascending: false });
       
       console.log('Fetched memories:', { data, error });
